@@ -17,12 +17,8 @@ app.config_from_object(settings, namespace='CELERY')
 
 app.conf.beat_schedule = {
     'every-10-seconds':{   #to req every 10 secs
-        'task': 'm'
+        'task': 'mainapp.tasks.update_stock',   #call that function
+        'schedule' : 10,  #every 10 secs schedule it
     }
 }
 
-app.autodiscover_tasks()
-
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')
