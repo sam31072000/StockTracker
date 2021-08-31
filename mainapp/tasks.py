@@ -6,7 +6,7 @@ from channels.layers import get_channel_layer
 import asyncio
 import simplejson as json
 @shared_task(bind = True)
-def update_stock(self, stockpicker):
+def update_stock(self, stockpicker): #to update the data at regular intervals 
     data = {}
     available_stocks = tickers_nifty50()
     for i in stockpicker:
@@ -15,7 +15,7 @@ def update_stock(self, stockpicker):
         else:
             stockpicker.remove(i)
     
-    n_threads = len(stockpicker)
+    n_threads = len(stockpicker)  #to improve efficiency use threads
     thread_list = []
     que = queue.Queue()
     for i in range(n_threads):
